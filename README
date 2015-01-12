@@ -1,0 +1,9 @@
+Those are u-boot binaries built from Hardkernel Github.
+
+https://github.com/hardkernel/u-boot
+Branch: https://github.com/hardkernel/u-boot
+
+Branch URL: https://github.com/hardkernel/u-boot/tree/odroidc-v2011.03
+
+When a new build is made, the commit information is the actual sha1 of
+Hardkernel Github where the U-Boot was build.
