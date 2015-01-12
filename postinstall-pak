@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# (C) Copyright 2014 Hardkernel Co,.Ltd
+#
+
+BL1=/usr/share/c1_uboot/bl1.bin.hardkernel
+UBOOT=/usr/share/c1_uboot/u-boot.bin
+dev=/dev/mmcblk0
+
+if [ ! -f $BL1 ]; then
+        echo "Error: $BL1 is not exist."
+        exit 2
+fi
+
+if [ ! -f $UBOOT ]; then
+        echo "Error: $UBOOT is not exist."
+        exit 2
+fi
+
+sudo dd if=$BL1 of=$dev bs=1 count=442
+sudo dd if=$BL1 of=$dev bs=512 skip=1 seek=1
+sudo dd if=$UBOOT of=$dev bs=512 seek=64
+sync
+
+
+echo "U-Boot updated"
