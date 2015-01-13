@@ -3,24 +3,44 @@
 # (C) Copyright 2014 Hardkernel Co,.Ltd
 #
 
-BL1=/usr/share/c1_uboot/bl1.bin.hardkernel
-UBOOT=/usr/share/c1_uboot/u-boot.bin
-dev=/dev/mmcblk0
-
-if [ ! -f $BL1 ]; then
-        echo "Error: $BL1 is not exist."
-        exit 2
+# Need to exit 0, otherwise dpkg will fail! 
+if [ ! -b /dev/mmcblk0 ]; then
+	echo "Sorry, I didn't found /dev/mmcblk0"
+	echo "Update won't proceed. Please check:"
+	echo "/usr/share/c1_uboot for the flashing script"
+	exit 0
 fi
 
-if [ ! -f $UBOOT ]; then
-        echo "Error: $UBOOT is not exist."
-        exit 2
-fi
+echo "A new U-Boot is about to be installed on /dev/mmcblk0"
+echo "Are you sure that you want to do this? [y|n]"
+read -r yn
 
-sudo dd if=$BL1 of=$dev bs=1 count=442
-sudo dd if=$BL1 of=$dev bs=512 skip=1 seek=1
-sudo dd if=$UBOOT of=$dev bs=512 seek=64
-sync
+if [[ $yn =~ ^([yY][eE][sS]|[yY])$ ]]; then
+
+	BL1=/usr/share/c1_uboot/bl1.bin.hardkernel
+	UBOOT=/usr/share/c1_uboot/u-boot.bin
+	dev=/dev/mmcblk0
+
+	if [ ! -f $BL1 ]; then
+        	echo "Error: $BL1 is not exist."
+	        exit 0
+	fi
+
+	if [ ! -f $UBOOT ]; then
+        	echo "Error: $UBOOT is not exist."
+	        exit 0
+	fi
+
+	sudo dd if=$BL1 of=$dev bs=1 count=442
+	sudo dd if=$BL1 of=$dev bs=512 skip=1 seek=1
+	sudo dd if=$UBOOT of=$dev bs=512 seek=64
+	sync
+
+
+else
+	echo "Ok, not updating it." 
+	exit 0
+fi
 
 
 echo "U-Boot updated"
