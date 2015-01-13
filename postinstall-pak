@@ -1,15 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 #
 # (C) Copyright 2014 Hardkernel Co,.Ltd
 #
 
 # Need to exit 0, otherwise dpkg will fail! 
-if [ ! -b /dev/mmcblk0 ]; then
-	echo "Sorry, I didn't found /dev/mmcblk0"
-	echo "Update won't proceed. Please check:"
-	echo "/usr/share/c1_uboot for the flashing script"
-	exit 0
-fi
+# if [ ! -b /dev/mmcblk0 ]; then
+#	echo "Sorry, I didn't found /dev/mmcblk0"
+#	echo "Update won't proceed. Please check:"
+#	echo "/usr/share/c1_uboot for the flashing script"
+#	exit 0
+#fi
 
 echo "A new U-Boot is about to be installed on /dev/mmcblk0"
 echo "Are you sure that you want to do this? [y|n]"
