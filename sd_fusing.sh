@@ -25,5 +25,4 @@ sudo dd if=$BL1 of=$1 bs=1 count=442
 sudo dd if=$BL1 of=$1 bs=512 skip=1 seek=1
 sudo dd if=$UBOOT of=$1 bs=512 seek=64
 sync
-sudo eject $1
 echo FINISH
